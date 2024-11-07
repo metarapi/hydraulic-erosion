@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebGPU Hydraulic Erosion</title>
+  <link href="styles.css" rel="stylesheet">
+</head>
+
+<body class="h-full">
+  <div id="webgpu-modal-partial"></div>
+  <div id="topbar"></div>
+  <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-tr from-battleship_gray-100 to-battleship_gray-200 -z-10">
+  </div>
+  
+  <!-- Wrap your content in a flex container -->
+  <div class="flex flex-col h-full">
+    
+    <!-- <h1 class="text-center font-regular text-2xl py-4 text-gold_metallic">Hydraulic Erosion</h1> -->
+
+    <!-- Make the carousel container flex-grow to fill remaining space -->
+    <div id="controls-carousel" class="relative w-full h-full flex-1" data-carousel="static">
+      <!-- Carousel wrapper -->
+      <div class="relative w-full h-full overflow-hidden rounded-none">
+        <!-- Item 0 -->
+        <div id="carousel-item-0" class="duration-700 ease-in-out h-full" data-carousel-item="active"></div>
+        <!-- Item 1 -->
+        <div id="carousel-item-1" class="duration-700 ease-in-out h-full" data-carousel-item></div>
+        <!-- Item 2 -->
+        <div id="carousel-item-2" class="duration-700 ease-in-out h-full" data-carousel-item></div>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+  <div id="navbar"></div>
+  <div id="alerts"></div>
+</body>
+
+</html>

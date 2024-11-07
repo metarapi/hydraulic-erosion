@@ -1,0 +1,92 @@
+/* Import Tailwind's base styles */
+@tailwind base;
+
+/* Import Flowbite's components */
+@import "flowbite";
+
+/* Import Tailwind's component and utility styles */
+@tailwind components;
+@tailwind utilities;
+
+/* Import Bootstrap icons */
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+/* Custom styles */
+#threejs-canvas {
+    display: block;
+    width: 800px;
+    height: 800px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Styling the slider track */
+input[type="range"] {
+    --thumb-color: #444; /* Default thumb color, this will be overridden by JS */
+}
+
+/* Styling the slider thumb for WebKit-based browsers (Chrome, Safari) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: var(--thumb-color); /* Use the CSS variable for dynamic color */
+    cursor: pointer;
+    border: 2px solid #efcc81;
+    border-radius: 0; /* Ensures the thumb is square */
+}
+
+/* Styling the slider thumb for Firefox */
+input[type="range"]::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    background: var(--thumb-color); /* Use the CSS variable for dynamic color */
+    cursor: pointer;
+    border: 2px solid #efcc81;
+    border-radius: 0; /* Ensures the thumb is square */
+}
+
+/* Remove the progress line in Firefox */
+input[type="range"]::-moz-range-progress {
+    background: #ddd;
+}
+
+/* Custom font */
+@layer base {
+    @font-face {
+        font-family: 'Proxima Nova';
+        src: url('/src/assets/fonts/ProximaNovaT-Thin.woff2') format('woff2');
+        font-weight: 100; /* Thin */
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Proxima Nova';
+        src: url('/src/assets/fonts/ProximaNova-Light.woff2') format('woff2');
+        font-weight: 300; /* Light */
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Proxima Nova';
+        src: url('/src/assets/fonts/ProximaNova-Regular.woff2') format('woff2');
+        font-weight: 400; /* Regular */
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Proxima Nova';
+        src: url('/src/assets/fonts/ProximaNova-Semibold.woff2') format('woff2');
+        font-weight: 600; /* Semibold */
+        font-style: normal;
+    }
+}

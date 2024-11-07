@@ -1,0 +1,23 @@
+<!-- Main modal -->
+<div id="webgpu-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
+    <div class="relative w-full max-w-2xl p-4 md:p-6">
+        <!-- Modal content -->
+        <div class="bg-gradient-to-tl from-black to-battleship_gray-100 border border-battleship_gray-500 rounded-none shadow-sm dark:bg-gray-800">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b border-battleship_gray-500">
+                <h3 class="text-xl font-light text-gold_metallic-500">
+                    WebGPU Not Supported
+                </h3>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4 font-light text-lg text-papaya_whip-400">
+                <p>
+                    Your browser does not support WebGPU, which is required to run this application. Please check the link below to see which browsers support WebGPU.
+                </p>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API#browser_compatibility" target="_blank" class="text-vivid_sky_blue-500 hover:underline">
+                    WebGPU Browser Compatibility
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

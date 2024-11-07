@@ -1,0 +1,110 @@
+<!-- Alert Container -->
+<div id="alert-container" class="fixed top-14 left-1/2 transform -translate-x-1/2 z-50 space-y-4">
+
+    <!-- Failed Upload Alert -->
+    <template id="alert-failed-upload">
+        <div class="flex pt-4 px-4 text-lg outline outline-1 outline-battleship_gray-400 text-vermilion-500 rounded-none bg-gradient-to-br from-black to-battleship_gray-100 hidden"
+            role="alert">
+            <!-- SVG Icon -->
+            <i class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px] bi bi-info-square"></i>
+            <!-- Alert Content -->
+            <div>
+                <span class="text-lg font-light">Upload failed.</span>
+                <span class="text-lg font-light">Ensure that these requirements are met:</span>
+                <ul class="mt-1.5 list-disc list-inside">
+                    <li class="font-light">Square aspect ratio</li>
+                    <li class="font-light">File type PNG or JPG</li>
+                    <li class="font-light">Preferably size of 1024x1024</li>
+                </ul>
+            </div>
+            <!-- Close Button -->
+            <button type="button"
+                class="transition ease-in-out ms-auto text-vermilion-500 rounded-none focus:text-white hover:text-battleship_gray-600 inline-flex justify-center h-10 w-10 active:scale-125 hover:scale-125 hover:-translate:x-1 close-alert-button"
+                aria-label="Close">
+                <span class="sr-only">Close</span>
+                <i class="w-3 h-3 bi bi-x-lg"></i>
+            </button>
+        </div>
+    </template>
+
+    <!-- Image Resized Alert -->
+    <template id="alert-resize">
+        <div class="flex pt-4 px-4 text-lg outline outline-1 outline-battleship_gray-400 text-gold_metallic-500 rounded-none bg-gradient-to-br from-black to-battleship_gray-100 hidden"
+            role="alert">
+            <!-- SVG Icon -->
+            <i class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px] bi bi-info-square"></i>
+            <!-- Alert Content -->
+            <div class="ms-3 text-lg font-light">
+                The image was resized to 1024x1024.
+            </div>
+            <!-- Close Button -->
+            <button type="button"
+                class="transition ease-in-out ms-auto text-gold_metallic-500 rounded-none focus:text-white hover:text-battleship_gray-600 inline-flex justify-center h-10 w-10 active:scale-125 hover:scale-125 hover:-translate:x-1 close-alert-button"
+                aria-label="Close">
+                <span class="sr-only">Close</span>
+                <i class="w-3 h-3 bi bi-x-lg"></i>
+            </button>
+        </div>
+    </template>
+
+    <!-- Upload Sucessful Alert -->
+    <template id="alert-upload">
+        <div class="flex pt-4 px-4 text-lg outline outline-1 outline-battleship_gray-400 text-light_green-500 rounded-none bg-gradient-to-br from-black to-battleship_gray-100 hidden"
+            role="alert">
+            <!-- SVG Icon -->
+            <i class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px] bi bi-info-square"></i>
+            <!-- Alert Content -->
+            <div class="ms-3 text-lg font-light">
+                Upload successful.
+            </div>
+            <!-- Close Button -->
+            <button type="button"
+                class="transition ease-in-out ms-auto text-light_green-500 rounded-none focus:text-white hover:text-battleship_gray-600 inline-flex justify-center h-10 w-10 active:scale-125 hover:scale-125 hover:-translate:x-1 close-alert-button"
+                aria-label="Close">
+                <span class="sr-only">Close</span>
+                <i class="w-3 h-3 bi bi-x-lg"></i>
+            </button>
+        </div>
+    </template>
+
+    <!-- Terrain Generation Alert -->
+    <template id="alert-generation-complete">
+        <div class="flex pt-4 px-4 text-lg outline outline-1 outline-battleship_gray-400 text-vivid_sky_blue-500 rounded-none bg-gradient-to-br from-black to-battleship_gray-100 hidden"
+            role="alert">
+            <!-- SVG Icon -->
+            <i class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px] bi bi-info-square"></i>
+            <!-- Alert Content -->
+            <div class="ms-3 text-lg font-light">
+                Terrain generation complete.
+            </div>
+            <!-- Close Button -->
+            <button type="button"
+                class="transition ease-in-out ms-auto text-vivid_sky_blue-500 rounded-none focus:text-white hover:text-battleship_gray-600 inline-flex justify-center h-10 w-10 active:scale-125 hover:scale-125 hover:-translate:x-1 close-alert-button"
+                aria-label="Close">
+                <span class="sr-only">Close</span>
+                <i class="w-3 h-3 bi bi-x-lg"></i>
+            </button>
+        </div>
+    </template>
+
+    <!-- Terrain Erosion Alert -->
+    <template id="alert-erosion-complete">
+        <div class="flex pt-4 px-4 text-lg outline outline-1 outline-battleship_gray-400 text-vivid_sky_blue-500 rounded-none bg-gradient-to-br from-black to-battleship_gray-100 hidden"
+            role="alert">
+            <!-- SVG Icon -->
+            <i class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px] bi bi-info-square"></i>
+            <!-- Alert Content -->
+            <div class="ms-3 text-lg font-light">
+                Terrain erosion complete.
+            </div>
+            <!-- Close Button -->
+            <button type="button"
+                class="transition ease-in-out ms-auto text-vivid_sky_blue-500 rounded-none focus:text-white hover:text-battleship_gray-600 inline-flex justify-center h-10 w-10 active:scale-125 hover:scale-125 hover:-translate:x-1 close-alert-button"
+                aria-label="Close">
+                <span class="sr-only">Close</span>
+                <i class="w-3 h-3 bi bi-x-lg"></i>
+            </button>
+        </div>
+    </template>
+
+</div>

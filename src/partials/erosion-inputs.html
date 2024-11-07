@@ -1,0 +1,278 @@
+<div class="pb-1">
+    <!-- Droplets Range -->
+    <div class="pb-1">
+        <div class="flex justify-between m-1">
+            <label for="droplets-range" class="block font-light text-base text-gold_metallic-500">Droplets
+                <i data-popover-target="popover-droplets" data-popover-placement="bottom-end"
+                    class="text-xs text-papaya_whip-400 text-center hover:text-white bi bi-info-square"></i>
+            </label>
+            <div class="relative flex items-center max-w-[6rem]">
+                <input type="number" id="droplets-input" data-input-counter
+                    class="mt-0.5 px-0 bg-transparent border-0 h-5 text-right font-thin text-white focus:outline-none focus:ring-1 focus:ring-gold_metallic-500 block w-full py-2.5"
+                    min="1" max="1048576" value="512000" required /> 
+            </div>
+        </div>
+        <div class="p-1">
+            <input id="droplets-range" type="range" min="1" max="1048576" value="512000"
+                class="w-full h-2 py-2 bg-gold_metallic-500 rounded-none appearance-none range-sm cursor-pointer">
+        </div>
+        <!-- Popover for Droplets -->
+        <div data-popover id="popover-droplets" role="tooltip"
+            class="absolute z-10 invisible inline-block text-sm text-papaya_whip-400 transition-opacity duration-300 bg-gradient-to-tl from-black to-battleship_gray-100 border border-battleship_gray-500 rounded-none shadow-sm opacity-0 w-72">
+            <div class="p-3 space-y-2">
+                <h3 class="font-semibold text-gold_metallic-500">Droplets</h3>
+                <p><strong>Number of water droplets used to simulate terrain erosion.</strong></p>
+                <h4 class="font-semibold text-gold_metallic-500">Function</h4>
+                <p>Determines how many individual droplets will traverse the terrain during each simulation cycle.</p>
+                <h4 class="font-semibold text-gold_metallic-500">Impact</h4>
+                <ul class="font-regular list-disc list-inside">
+                    <li><strong>Higher Values:</strong> Increase the simulation's detail and accuracy by allowing more
+                        interactions with the terrain, but may require more computational resources and time.</li>
+                    <li><strong>Lower Values:</strong> Reduce computational load and speed up the simulation, but may result
+                        in less detailed erosion patterns.</li>
+                </ul>
+                <h4 class="font-semibold text-gold_metallic-500">Recommendation</h4>
+                <p>Adjust based on desired simulation detail and available processing power.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cycles Range -->
+    <div class="pb-1">
+        <div class="flex justify-between m-1">
+            <label for="cycles-range" class="block font-light text-base text-gold_metallic-500">Cycles
+                <i data-popover-target="popover-cycles" data-popover-placement="bottom-end"
+                    class="text-xs text-papaya_whip-400 text-center hover:text-white bi bi-info-square"></i>
+            </label>
+            <div class="relative flex items-center max-w-[6rem]">
+                <input type="number" id="cycles-input" data-input-counter
+                    class="mt-0.5 px-0 bg-transparent border-0 h-5 text-right font-thin text-white focus:outline-none focus:ring-1 focus:ring-gold_metallic-500 block w-full py-2.5"
+                    min="1" max="4096" value="128" required />
+            </div>
+        </div>
+        <div class="p-1">
+            <input id="cycles-range" type="range" min="1" max="4096" value="128"
+                class="w-full h-2 py-2 bg-gold_metallic-500 rounded-none appearance-none range-sm cursor-pointer">
+        </div>
+        <!-- Popover for Cycles -->
+        <div data-popover id="popover-cycles" role="tooltip"
+            class="absolute z-10 invisible inline-block text-sm text-papaya_whip-400 transition-opacity duration-300 bg-gradient-to-tl from-black to-battleship_gray-100 border border-battleship_gray-500 rounded-none shadow-sm opacity-0 w-72">
+            <div class="p-3 space-y-2">
+                <h3 class="font-semibold text-gold_metallic-500">Cycles</h3>
+                <p><strong>Number of simulation cycles to run.</strong></p>
+                <h4 class="font-semibold text-gold_metallic-500">Function</h4>
+                <p>Specifies how many complete passes the erosion simulation will perform over the terrain.</p>
+                <h4 class="font-semibold text-gold_metallic-500">Impact</h4>
+                <ul class="list-disc list-inside">
+                    <li><strong>Higher Values:</strong> Allow more extensive erosion and deposition processes, leading to
+                        more pronounced terrain changes.</li>
+                    <li><strong>Lower Values:</strong> Limit the extent of terrain modification, resulting in subtler
+                        changes.</li>
+                </ul>
+                <h4 class="font-semibold text-gold_metallic-500">Recommendation</h4>
+                <p>Choose a value that balances the desired level of terrain transformation with the time required for the
+                    simulation.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed Point Scale Range -->
+    <div class="pb-1">
+        <div class="flex justify-between m-1">
+            <label for="fixed-point-range" class="block font-light text-base text-gold_metallic-500">Fixed Point Scale
+                <i data-popover-target="popover-fixed-point-scale" data-popover-placement="bottom-end"
+                    class="text-xs text-papaya_whip-400 text-center hover:text-white bi bi-info-square"></i>
+            </label>
+            <div class="relative flex items-center max-w-[6rem]">
+                <input type="number" id="fixed-point-input" data-input-counter
+                class="mt-0.5 px-0 bg-transparent border-0 h-5 text-right font-thin text-white focus:outline-none focus:ring-1 focus:ring-gold_metallic-500 block w-full py-2.5" 
+                min="100" max="1000000" value="100000" required />
+            </div>
+        </div>
+        <div class="p-1">
+            <input id="fixed-point-range" type="range" min="100" max="1000000" value="100000"
+                class="w-full h-2 py-2 bg-gold_metallic-500 rounded-none appearance-none range-sm cursor-pointer">
+        </div>
+        <!-- Popover for Fixed Point Scale -->
+        <div data-popover id="popover-fixed-point-scale" role="tooltip"
+        class="absolute z-10 invisible inline-block text-sm text-papaya_whip-400 transition-opacity duration-300 bg-gradient-to-tl from-black to-battleship_gray-100 border border-battleship_gray-500 rounded-none shadow-sm opacity-0 w-72">
+        <div class="p-3 space-y-2">
+            <h3 class="font-semibold text-gold_metallic-500">Fixed Point Scale</h3>
+            <p><strong>Scaling factor to maintain precision in heightmap calculations.</strong></p>
+            <h4 class="font-semibold text-gold_metallic-500">Function</h4>
+            <p>Multiplies height values to preserve decimal precision in integer-based computations.</p>
+            <h4 class="font-semibold text-gold_metallic-500">Impact</h4>
+            <ul class="list-disc list-inside">
+                <li><strong>Higher Scale:</strong> Increases precision, allowing for finer elevation changes, but may lead to larger memory usage.</li>
+                <li><strong>Lower Scale:</strong> Reduces precision, potentially causing noticeable elevation steps or artifacts in the terrain.</li>
+            </ul>
+            <h4 class="font-semibold text-gold_metallic-500">Recommendation</h4>
+            <p>Set a scale that offers a balance between computational precision and memory efficiency based on the simulation's requirements.</p>
+        </div>
+        </div>
+    </div>
+
+    <!-- Erosion Rate Range -->
+    <div class="pb-1">
+        <div class="flex justify-between m-1">
+            <label for="erosion-rate-range" class="block font-light text-base text-gold_metallic-500">Erosion Rate
+                <i data-popover-target="popover-erosion-rate" data-popover-placement="bottom-end"
+                    class="text-xs text-papaya_whip-400 text-center hover:text-white bi bi-info-square"></i>
+            </label>
+            <div class="relative flex items-center max-w-[6rem]">
+                <input type="number" id="erosion-rate-input" 
+                class="mt-0.5 px-0 bg-transparent border-0 h-5 text-right font-thin text-white focus:outline-none focus:ring-1 focus:ring-gold_metallic-500 block w-full py-2.5"
+                value="0.000001" min="0.0000001" max="0.1" step="0.000001">
+            </div>
+        </div>
+        <div class="p-1">
+            <input id="erosion-rate-range" type="range" min="0.0000001" max="0.1" value="0.000001" step="0.0000001"
+                class="w-full h-2 py-2 bg-gold_metallic-500 rounded-none appearance-none range-sm cursor-pointer">
+        </div>
+        <!-- Popover for Erosion Rate -->
+        <div data-popover id="popover-erosion-rate" role="tooltip"
+        class="absolute z-10 invisible inline-block text-sm text-papaya_whip-400 transition-opacity duration-300 bg-gradient-to-tl from-black to-battleship_gray-100 border border-battleship_gray-500 rounded-none shadow-sm opacity-0 w-72">
+        <div class="p-3 space-y-2">
+            <h3 class="font-semibold text-gold_metallic-500">Erosion Rate</h3>
+            <p><strong>Rate at which droplets erode the terrain.</strong></p>
+            <h4 class="font-semibold text-gold_metallic-500">Function</h4>
+            <p>Controls how much sediment a droplet removes from the terrain per interaction.</p>
+            <h4 class="font-semibold text-gold_metallic-500">Impact</h4>
+            <ul class="list-disc list-inside">
+                <li><strong>Higher Rates:</strong> Accelerate erosion, leading to quicker terrain degradation but may oversimplify realistic processes.</li>
+                <li><strong>Lower Rates:</strong> Slow down erosion, resulting in more gradual and potentially more realistic terrain changes.</li>
+            </ul>
+            <h4 class="font-semibold text-gold_metallic-500">Recommendation</h4>
+            <p>Adjust to simulate different erosion intensities; higher for aggressive erosion scenarios and lower for gentle landscapes.</p>
+        </div>
+        </div>
+    </div>
+
+    <!-- Deposition Rate Range -->
+    <div class="pb-1">
+        <div class="flex justify-between m-1">
+            <label for="deposition-rate-range" class="block font-light text-base text-gold_metallic-500">Deposition Rate
+                <i data-popover-target="popover-deposition-rate" data-popover-placement="bottom-end"
+                    class="text-xs text-papaya_whip-400 text-center hover:text-white bi bi-info-square"></i>
+            </label>
+            <div class="relative flex items-center max-w-[6rem]">
+                <input type="number" id="deposition-rate-input" 
+                class="mt-0.5 px-0 bg-transparent border-0 h-5 text-right font-thin text-white focus:outline-none focus:ring-1 focus:ring-gold_metallic-500 block w-full py-2.5"
+                value="0.000001" min="0.0000001" max="0.1" step="0.000001">
+            </div>
+        </div>
+        <div class="p-1">
+            <input id="deposition-rate-range" type="range" min="0.0000001" max="0.1" value="0.000001" step="0.0000001"
+                class="w-full h-2 py-2 bg-gold_metallic-500 rounded-none appearance-none range-sm cursor-pointer">
+        </div>
+        <!-- Popover for Deposition Rate -->
+        <div data-popover id="popover-deposition-rate" role="tooltip"
+        class="absolute z-10 invisible inline-block text-sm text-papaya_whip-400 transition-opacity duration-300 bg-gradient-to-tl from-black to-battleship_gray-100 border border-battleship_gray-500 rounded-none shadow-sm opacity-0 w-72">
+        <div class="p-3 space-y-2">
+            <h3 class="font-semibold text-gold_metallic-500">Deposition Rate</h3>
+            <p><strong>Rate at which droplets deposit sediment onto the terrain.</strong></p>
+            <h4 class="font-semibold text-gold_metallic-500">Function</h4>
+            <p>Determines how much sediment a droplet adds to the terrain per interaction.</p>
+            <h4 class="font-semibold text-gold_metallic-500">Impact</h4>
+            <ul class="list-disc list-inside">
+                <li><strong>Higher Rates:</strong> Increase sediment deposition, potentially creating more prominent geological features like dunes or deltas.</li>
+                <li><strong>Lower Rates:</strong> Decrease deposition, resulting in less noticeable buildup and flatter terrain areas.</li>
+            </ul>
+            <h4 class="font-semibold text-gold_metallic-500">Recommendation</h4>
+            <p>Use higher rates to model environments with abundant sediment or strong deposition forces, and lower rates for sparse sediment scenarios.</p>
+        </div>
+        </div>
+    </div>
+
+    <!-- Barrier Interval Range -->
+    <div class="pb-1">
+        <div class="flex justify-between m-1">
+            <label for="barrier-interval-range" class="block font-light text-base text-gold_metallic-500">Barrier Interval
+                <i data-popover-target="popover-barrier-interval" data-popover-placement="bottom-end"
+                    class="text-xs text-papaya_whip-400 text-center hover:text-white bi bi-info-square"></i>
+            </label>
+            <div class="relative flex items-center max-w-[6rem]">
+                <input type="number" id="barrier-interval-input" data-input-counter
+                class="mt-0.5 px-0 bg-transparent border-0 h-5 text-right font-thin text-white focus:outline-none focus:ring-1 focus:ring-gold_metallic-500 block w-full py-2.5" 
+                min="1" max="256" value="5" required />
+            </div>
+        </div>
+        <div class="p-1">
+            <input id="barrier-interval-range" type="range" min="1" max="256" value="5"
+                class="w-full h-2 py-2 bg-gold_metallic-500 rounded-none appearance-none range-sm cursor-pointer">
+        </div>
+        <!-- Popover for Barrier Interval -->
+        <div data-popover id="popover-barrier-interval" role="tooltip"
+        class="absolute z-10 invisible inline-block text-sm text-papaya_whip-400 transition-opacity duration-300 bg-gradient-to-tl from-black to-battleship_gray-100 border border-battleship_gray-500 rounded-none shadow-sm opacity-0 w-72">
+        <div class="p-3 space-y-2">
+            <h3 class="font-semibold text-gold_metallic-500">Barrier Interval</h3>
+            <p><strong>Frequency (in iterations) to synchronize simulation processes.</strong></p>
+            <h4 class="font-semibold text-gold_metallic-500">Function</h4>
+            <p>Sets how often (in terms of simulation iterations) the system enforces memory and execution synchronization barriers.</p>
+            <h4 class="font-semibold text-gold_metallic-500">Impact</h4>
+            <ul class="list-disc list-inside">
+                <li><strong>Higher Intervals:</strong> Reduce the frequency of synchronization, potentially increasing performance but risking data consistency issues.</li>
+                <li><strong>Lower Intervals:</strong> Ensure more frequent synchronization, enhancing data integrity at the cost of performance.</li>
+            </ul>
+            <h4 class="font-semibold text-gold_metallic-500">Recommendation</h4>
+            <p>Balance synchronization frequency to maintain simulation accuracy without significantly hindering performance. Typically, values between 5-10 are effective.</p>
+        </div>
+        </div>
+    </div>
+
+    <!-- Draw Interval Range -->
+    <div class="pb-1">
+        <div class="flex justify-between m-1">
+            <label for="draw-interval-range" class="block font-light text-base text-gold_metallic-500">Draw Interval
+                <i data-popover-target="popover-draw-interval" data-popover-placement="bottom-end"
+                    class="text-xs text-papaya_whip-400 text-center hover:text-white bi bi-info-square"></i>
+            </label>
+            <div class="relative flex items-center max-w-[6rem]">
+                <input type="number" id="draw-interval-input" data-input-counter
+                class="mt-0.5 px-0 bg-transparent border-0 h-5 text-right font-thin text-white focus:outline-none focus:ring-1 focus:ring-gold_metallic-500 block w-full py-2.5" 
+                min="1" max="64" value="8" required />
+            </div>
+        </div>
+        <div class="p-1">
+            <input id="draw-interval-range" type="range" min="1" max="64" value="8"
+                class="w-full h-2 py-2 bg-gold_metallic-500 rounded-none appearance-none range-sm cursor-pointer">
+        </div>
+        <!-- Popover for Draw Interval -->
+        <div data-popover id="popover-draw-interval" role="tooltip"
+        class="absolute z-10 invisible inline-block text-sm text-papaya_whip-400 transition-opacity duration-300 bg-gradient-to-tl from-black to-battleship_gray-100 border border-battleship_gray-500 rounded-none shadow-sm opacity-0 w-72">
+        <div class="p-3 space-y-2">
+            <h3 class="font-semibold text-gold_metallic-500">Draw Interval</h3>
+            <p><strong>Frequency (in cycles) to redraw the eroded terrain.</strong></p>
+            <h4 class="font-semibold text-gold_metallic-500">Function</h4>
+            <p>Sets after how many erosion cycles will the terrain be rendered.</p>
+            <h4 class="font-semibold text-gold_metallic-500">Impact</h4>
+            <ul class="list-disc list-inside">
+                <li><strong>Higher Intervals:</strong> Reduce the frequency of drawing, improving performance, especialy for larger heightmaps.</li>
+                <li><strong>Lower Intervals:</strong> Increase the frequency of drawing, providing more detailed visualization of the erosion process.</li>
+            </ul>
+            <h4 class="font-semibold text-gold_metallic-500">Recommendation</h4>
+            <p>For a heightmap size of 256, smaller values work well. For 1024 and larger, consider using higher intervals to balance performance and visualization detail.</p>
+        </div>
+        </div>
+    </div>
+    
+</div>
+
+<hr class="my-12 mx-2 border-dashed border-battleship_gray-300">
+
+  <div class="inline-flex w-full p-1 group transition-colors duration-300 ">
+    <button id="startErosionButton"
+      class="transition ease-in-out flex-grow w-full border border-vivid_sky_blue-500 group-hover:bg-vivid_sky_blue-500 group-active:bg-vivid_sky_blue-500 group-active:scale-105">
+      <div class="pb-1 pt-2">
+        <div id="startErosionButtonText" class="text-center transition ease-in-out text-lg font-light text-vivid_sky_blue-500 group-hover:text-black group-active:scale-105">Start Erosion</div>
+      </div>
+    </button>
+  </div>
+
+  <div id="erosion-progress-bar" class="p-1 hidden">
+    <div class="w-full bg-battleship_gray-200 rounded-none h-2.5 mb-4">
+      <div class="bg-vivid_sky_blue-500 h-2.5 rounded-none" ></div>
+    </div>
+  </div>
+
+  <!-- style="width: 45%" -->

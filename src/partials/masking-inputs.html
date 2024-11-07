@@ -1,0 +1,120 @@
+<div class="pb-1">
+  <div class="pb-1">
+    <div class="flex justify-between mx-1">
+      <label for="grayscale-range" class="block font-light text-base text-gold_metallic-500">Colour
+        <i data-popover-target="popover-grayscale" data-popover-placement="bottom-end"
+          class="text-xs text-papaya_whip-400 text-center hover:text-white bi bi-info-square"></i>
+      </label>
+      <div id="current-color" class="mt-1 w-4 h-4 border border-gray-300"></div>
+    </div>
+    <div class="px-1 py-2 pb-2">
+      <input id="grayscale-range" type="range" min="0" max="255" value="100"
+        class="w-full h-2 py-2 bg-gradient-to-r from-black to-white rounded-none appearance-none range-sm cursor-pointer">
+    </div>
+  </div>
+  <!-- Popover for Grayscale -->
+  <div data-popover id="popover-grayscale" role="tooltip"
+    class="absolute z-10 invisible inline-block text-sm text-papaya_whip-400 transition-opacity duration-300 bg-gradient-to-tl from-black to-battleship_gray-100 border border-battleship_gray-500 rounded-none shadow-sm opacity-0 w-72">
+    <div class="p-3 space-y-2">
+      <h3 class="font-semibold text-gold_metallic-500">Grayscale</h3>
+      <p class="text-gold_metallic-500"><strong>Control Terrain Preservation:</strong></p>
+      <ul class="font-regular list-disc list-inside">
+        <li><strong>255 (White):</strong> Keep the input terrain unchanged.</li>
+        <li><strong>0 (Black):</strong> Flatten the terrain by removing it.</li>
+        <li><strong>Intermediate Values:</strong> Partially retain or flatten the terrain, allowing for the creation of features like islands.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="pb-1">
+  <div class="flex justify-between m-1">
+    <label for="brush-range" class="block font-light text-base text-gold_metallic-500">Brush Size
+    </label>
+    <div id="current-brush"
+      class="mt-0.5 w-8 h-5  font-thin text-white  flex items-center justify-center">25</div>
+  </div>
+  <div class="p-1">
+    <input id="brush-range" type="range" min="1" max="100" value="25"
+      class="w-full h-2 py-2 bg-gold_metallic-500 rounded-none appearance-none range-sm cursor-pointer">
+  </div>
+</div>
+
+<div class="inline-flex w-full p-1 group transition-colors duration-300 ">
+  <button id="clearCanvasButton"
+    class="transition ease-in-out flex-grow w-full border border-gray-500 group-hover:bg-papaya_whip-500 group-active:bg-gold_metallic-500 group-active:scale-105">
+    <div class="flex flex-row pb-1 pt-2">
+      <i
+        class="basis-2/5 text-right transition ease-in-out text-lg bi bi-x-square h-8 w-8 text-gray-300 px-2  group-hover:text-black group-active:scale-105"></i>
+      <span
+        class="basis-3/5 text-left transition ease-in-out text-lg font-light text-gray-300  group-hover:text-black group-active:scale-105 group-active:translate-x-2">Clear
+        Mask</i>
+    </div>
+  </button>
+</div>
+
+<div class="inline-flex w-full p-1 group transition-colors duration-300 ">
+  <button id="fillCanvasButton"
+    class="transition ease-in-out flex-grow w-full border border-gray-500 group-hover:bg-papaya_whip-500 group-active:bg-gold_metallic-500 group-active:scale-105">
+    <div class="flex flex-row pb-1 pt-2">
+      <i
+        class="basis-2/5 text-right transition ease-in-out text-lg bi bi-square-fill h-8 w-8 text-gray-300 px-2  group-hover:text-black group-active:scale-105"></i>
+      <span
+        class="basis-3/5 text-left transition ease-in-out text-lg font-light text-gray-300  group-hover:text-black group-active:scale-105 group-active:translate-x-2">Fill
+        Mask</i>
+    </div>
+  </button>
+</div>
+
+<div class="inline-flex w-full p-1 group transition-colors duration-300 ">
+  <button id="resetCanvasButton"
+    class="transition ease-in-out flex-grow w-full border border-gray-500 group-hover:bg-papaya_whip-500 group-active:bg-gold_metallic-500 group-active:scale-105">
+    <div class="flex flex-row pb-1 pt-2">
+      <i
+        class="basis-2/5 text-right transition ease-in-out text-lg bi bi-caret-up-square h-8 w-8 text-gray-300 px-2  group-hover:text-black group-active:scale-105"></i>
+      <span
+        class="basis-3/5 text-left transition ease-in-out text-lg font-light text-gray-300  group-hover:text-black group-active:scale-105 group-active:translate-x-2">Reset
+        Mask</i>
+    </div>
+  </button>
+</div>
+
+<div class="inline-flex w-full p-1 group transition-colors duration-300 ">
+  <button id="uploadMaskButton"
+    class="transition ease-in-out flex-grow w-full border border-gray-500 group-hover:bg-papaya_whip-500 group-active:bg-gold_metallic-500 group-active:scale-105">
+    <div class="flex flex-row pb-1 pt-2">
+      <i
+        class="basis-2/5 text-right transition ease-in-out text-lg bi bi-file-earmark-arrow-up h-8 w-8 text-gray-300 px-2  group-hover:text-black group-active:scale-105"></i>
+      <span
+        class="basis-3/5 text-left transition ease-in-out text-lg font-light text-gray-300  group-hover:text-black group-active:scale-105 group-active:translate-x-2">Upload
+        Mask</i>
+    </div>
+  </button>
+  <input type="file" id="uploadMaskInput" accept="image/png, image/jpeg" class="hidden">
+</div>
+
+<div class="inline-flex w-full p-1 group transition-colors duration-300 ">
+  <button id="downloadMaskButton"
+    class="transition ease-in-out flex-grow w-full border border-gray-500 group-hover:bg-papaya_whip-500 group-active:bg-gold_metallic-500 group-active:scale-105">
+    <div class="flex flex-row pb-1 pt-2">
+      <i
+        class="basis-2/5 text-right transition ease-in-out text-lg bi bi-file-earmark-arrow-down h-8 w-8 text-gray-300 px-2  group-hover:text-black group-active:scale-105"></i>
+      <span
+        class="basis-3/5 text-left transition ease-in-out text-lg font-light text-gray-300  group-hover:text-black group-active:scale-105 group-active:translate-x-2">Save
+        Mask</i>
+    </div>
+  </button>
+</div>
+
+<hr class="my-12 mx-2 border-dashed border-battleship_gray-300">
+
+  <div class="inline-flex w-full p-1 group transition-colors duration-300 ">
+    <button id="applyMaskButton" disabled
+      class="transition ease-in-out flex-grow w-full border border-vivid_sky_blue-500 group-hover:bg-vivid_sky_blue-500 group-active:bg-vivid_sky_blue-500 group-active:scale-105
+      disabled:opacity-65 disabled:group-hover:bg-transparent disabled:group-active:scale-100
+      text-lg font-light text-vivid_sky_blue-500 group-hover:text-black disabled:text-vivid_sky_blue-500 disabled:group-hover:text-vivid_sky_blue-500">
+      <div class="pb-1 pt-2">
+        <div id="applyMaskButtonText" class="text-center transition ease-in-out group-active:scale-105">Apply Mask</div>
+      </div>
+    </button>
+  </div>
