@@ -2,9 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { createTextureFromLUT } from './generateTexture.js';
 import { initWebGPU } from './webgpuHelper.js';
-import { adjustCanvasSize } from './maskUtil.js';
-import { gaussianBlur } from './gaussianBlur.js';
-import testTexture from "../assets/lut.png";
+import { ViewportGizmo } from "three-viewport-gizmo";
 
 function createHeightmapMesh(heightmap, mapSize, texture = null, drawScale = 1000) {
     const geometry = new THREE.PlaneGeometry(mapSize, mapSize, mapSize - 1, mapSize - 1);
@@ -90,8 +88,19 @@ export async function initializeScene(heightmap, mapSize, drawScale = 1000) {
 
     setupLight(scene);
 
+    const gizmoOptions = {
+        offset: {
+          top: '100', // Top offset in pixels
+          right: '150', // Right offset in pixels
+        },
+        size: 100, // Size of the gizmo in pixels
+      };
+
     // Set up OrbitControls for camera movement
     const controls = new OrbitControls(camera, renderer.domElement);
+    const gizmo = new ViewportGizmo(camera, renderer, gizmoOptions);
+
+    gizmo.attachControls(controls);
    
     function resizeCanvas(renderer, camera, canvas) {
         // const width = canvas.clientWidth;
@@ -104,11 +113,16 @@ export async function initializeScene(heightmap, mapSize, drawScale = 1000) {
     }
 
     // Handle window resizing
-    window.addEventListener('resize', resizeCanvas);
+    window.onresize = () => {
+        resizeCanvas(renderer, camera, canvas);
+        gizmo.update();
+      };
+    //window.addEventListener('resize', resizeCanvas);
 
     function animate() {
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
+        gizmo.render();
     }
     animate();
 
