@@ -387,9 +387,9 @@ async function runSimulation(device, erosionPipeline, smoothingPipeline, bindGro
         poolMapData: poolMapData,
     };
 
-    saveLogBuffer(logData, mapSize);
-    saveLogBuffer(poolMapData, mapSize);
-    saveLogBuffer(heightmapData, mapSize);
+    // saveLogBuffer(logData, mapSize);
+    // saveLogBuffer(poolMapData, mapSize);
+    // saveLogBuffer(heightmapData, mapSize);
 
     return simulationData;
 }
