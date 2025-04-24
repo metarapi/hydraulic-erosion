@@ -151,7 +151,7 @@ function updateStartPositionsBuffer(device, startPositionsBuffer, droplets, mapS
     device.queue.writeBuffer(startPositionsBuffer, 0, startPositions);
 }
 
-function createBindGroup(device, bindGroupLayout, uniformBufferU32, uniformBufferF32, heightBuffer1, heightBuffer2, logBuffer, startPositionsBuffer) {
+function createBindGroup(device, bindGroupLayout, uniformBufferU32, uniformBufferF32, heightBuffer1, heightBuffer2, logBuffer, poolBuffer, startPositionsBuffer) {
     return device.createBindGroup({
         layout: bindGroupLayout,
         entries: [
@@ -161,6 +161,7 @@ function createBindGroup(device, bindGroupLayout, uniformBufferU32, uniformBuffe
             { binding: 3, resource: { buffer: logBuffer } },
             { binding: 4, resource: { buffer: startPositionsBuffer } },
             { binding: 5, resource: { buffer: heightBuffer2 } },
+            { binding: 6, resource: { buffer: poolBuffer } },
         ],
     });
 }
@@ -202,6 +203,7 @@ async function startSimulation(droplets, cycles, scale, erosionRate, depositionR
     const heightmapBuffer = createBuffer(device, heightmap, GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST | GPUBufferUsage.COPY_SRC);
     const smoothedHeightMapBuffer = createBuffer(device, heightmap, GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST | GPUBufferUsage.COPY_SRC);
     const logBuffer = createBuffer(device, new Int32Array(mapSize * mapSize), GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST | GPUBufferUsage.COPY_SRC);
+    const poolBuffer = createBuffer(device, new Int32Array(mapSize * mapSize), GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST | GPUBufferUsage.COPY_SRC);
     const uniformBufferU32 = createUniformBufferU32(device, droplets, mapSize, scale, barrierInterval);
     const uniformBufferF32 = createUniformBufferF32(device, erosionRate, depositionRate);
     const startPositionsBuffer = createStartPositionsBuffer(device, droplets, mapSize);
@@ -227,6 +229,7 @@ async function startSimulation(droplets, cycles, scale, erosionRate, depositionR
             { binding: 3, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'storage' } },
             { binding: 4, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'storage' } },
             { binding: 5, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'storage' } },
+            { binding: 6, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'storage' } },
         ],
     });
 
@@ -239,6 +242,7 @@ async function startSimulation(droplets, cycles, scale, erosionRate, depositionR
             { binding: 3, resource: { buffer: logBuffer } },
             { binding: 4, resource: { buffer: startPositionsBuffer } },
             { binding: 5, resource: { buffer: smoothedHeightMapBuffer } },
+            { binding: 6, resource: { buffer: poolBuffer } },
         ],
     });
 
@@ -273,6 +277,7 @@ async function startSimulation(droplets, cycles, scale, erosionRate, depositionR
         smoothedHeightMapBuffer,
         startPositionsBuffer,
         logBuffer,
+        poolBuffer,
         mapSize,
         WORKGROUP_SIZE,
         scale,
@@ -285,7 +290,7 @@ async function startSimulation(droplets, cycles, scale, erosionRate, depositionR
     return simulationData;
 }
 
-async function runSimulation(device, erosionPipeline, smoothingPipeline, bindGroupLayout, droplets, cycles, updateInterval, uniformBufferU32, uniformBufferF32, heightmapBuffer, smoothedHeightMapBuffer, startPositionsBuffer, logBuffer, mapSize, workgroupSize, scale, scene, mesh) {
+async function runSimulation(device, erosionPipeline, smoothingPipeline, bindGroupLayout, droplets, cycles, updateInterval, uniformBufferU32, uniformBufferF32, heightmapBuffer, smoothedHeightMapBuffer, startPositionsBuffer, logBuffer, poolBuffer, mapSize, workgroupSize, scale, scene, mesh) {
     const erosionWorkgroupCount = Math.ceil(droplets / workgroupSize);
     const totalCells = mapSize * mapSize;
     const smoothingWorkgroupCount = Math.ceil(totalCells / workgroupSize);
@@ -316,6 +321,7 @@ async function runSimulation(device, erosionPipeline, smoothingPipeline, bindGro
             isSwapped ? smoothedHeightMapBuffer : heightmapBuffer,
             isSwapped ? heightmapBuffer : smoothedHeightMapBuffer,
             logBuffer,
+            poolBuffer,
             startPositionsBuffer
         );
 
@@ -334,6 +340,7 @@ async function runSimulation(device, erosionPipeline, smoothingPipeline, bindGro
             isSwapped ? smoothedHeightMapBuffer : heightmapBuffer,
             isSwapped ? heightmapBuffer : smoothedHeightMapBuffer,
             logBuffer,
+            poolBuffer,
             startPositionsBuffer
         );
 
@@ -370,19 +377,24 @@ async function runSimulation(device, erosionPipeline, smoothingPipeline, bindGro
 
     // Read back data after all cycles
     const finalBuffer = isSwapped ? smoothedHeightMapBuffer : heightmapBuffer;
-    const { heightmapData, logData, heightmap2DArray } = await readbackData(device, finalBuffer, logBuffer, mapSize, scale);
+    const { heightmapData, logData, poolMapData, heightmap2DArray } = await readbackData(device, finalBuffer, logBuffer, poolBuffer, mapSize, scale);
 
     // Store simulation data for CSV download
     let simulationData = {
         heightmap2D: heightmap2DArray,
         heightmapData: heightmapData,
-        logData: logData
+        logData: logData,
+        poolMapData: poolMapData,
     };
+
+    saveLogBuffer(logData, mapSize);
+    saveLogBuffer(poolMapData, mapSize);
+    saveLogBuffer(heightmapData, mapSize);
 
     return simulationData;
 }
 
-async function readbackData(device, heightmapBuffer, logBuffer, mapSize, scale) {
+async function readbackData(device, heightmapBuffer, logBuffer, poolBuffer, mapSize, scale) {
     // Create buffers for readback
     const readbackHeightmap = device.createBuffer({
         size: heightmapBuffer.size,
@@ -394,25 +406,34 @@ async function readbackData(device, heightmapBuffer, logBuffer, mapSize, scale) 
         usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ,
     });
 
+    const readbackPoolMap = device.createBuffer({
+        size: poolBuffer.size,
+        usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ,
+    });
+
     // Encode commands to copy GPU buffers to readback buffers
     const encoder = device.createCommandEncoder();
     encoder.copyBufferToBuffer(heightmapBuffer, 0, readbackHeightmap, 0, heightmapBuffer.size);
     encoder.copyBufferToBuffer(logBuffer, 0, readbackLog, 0, logBuffer.size);
+    encoder.copyBufferToBuffer(poolBuffer, 0, readbackPoolMap, 0, poolBuffer.size);
     device.queue.submit([encoder.finish()]);
 
     // Await mapping of readback buffers
     await readbackHeightmap.mapAsync(GPUMapMode.READ);
     await readbackLog.mapAsync(GPUMapMode.READ);
+    await readbackPoolMap.mapAsync(GPUMapMode.READ);
 
     // Retrieve data from readback buffers
     //const heightmapData = new Float32Array(readbackHeightmap.getMappedRange());
     const heightmapData = new Int32Array(readbackHeightmap.getMappedRange());
     const logData = new Int32Array(readbackLog.getMappedRange());
+    const poolData = new Int32Array(readbackPoolMap.getMappedRange());
 
     // Copy data to new arrays before unmapping
     const heightmapDataCopy = new Float32Array(heightmapData);
     const heightmapDataFloat = heightmapDataCopy.map(value => value / scale);
     const logDataCopy = new Int32Array(logData);
+    const poolDataCopy = new Int32Array(poolData);
 
     // Convert linear heightmap to 2D array for CSV
     const heightmap2DArray = [];
@@ -423,8 +444,9 @@ async function readbackData(device, heightmapBuffer, logBuffer, mapSize, scale) 
     // Unmap buffers
     readbackHeightmap.unmap();
     readbackLog.unmap();
+    readbackPoolMap.unmap();
 
-    return { heightmapData: heightmapDataCopy, logData: logDataCopy, heightmap2DArray };
+    return { heightmapData: heightmapDataCopy, logData: logDataCopy, poolMapData: poolDataCopy , heightmap2DArray };
 }
 
 // Define initializeWebGPU and logDeviceLimits functions
@@ -512,5 +534,29 @@ function updateProgressBar(currentCycle, totalCycles) {
     const progressPercentage = (currentCycle / totalCycles) * 100;
     progressBar.style.width = `${progressPercentage}%`;
 }
+
+// Function to readback the log buffer and save it as a 2D csv file
+function saveLogBuffer(logData, mapSize) {
+    let csvData = '';
+
+    for (let z = 0; z < mapSize; z++) {
+        const row = [];
+        for (let x = 0; x < mapSize; x++) {
+            const index = z * mapSize + x;
+            row.push(logData[index]);
+        }
+        csvData += row.join(",") + "\n";
+    }
+
+    const blob = new Blob([csvData], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "erosion_log.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
 
 // displayHeightmap(simulationData.heightmapData, "outputHeightmap", parseInt(document.getElementById("scale").value, 10));

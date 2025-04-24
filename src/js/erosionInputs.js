@@ -8,32 +8,11 @@ export function bindSliderWithInput(sliderId, inputId) {
         input.value = slider.value;
     });
 
-    // Update slider when input is changed (on 'change' event)
-    input.addEventListener('change', function () {
-        // Ensure input stays within min/max bounds and steps
-        const min = parseFloat(slider.min);
-        const max = parseFloat(slider.max);
-        const step = parseFloat(slider.step) || 1;
-
-        let value = parseFloat(input.value);
-
-        if (isNaN(value)) {
-            // If input is not a number, reset to min
-            value = min;
-        } else {
-            if (value < min) value = min;
-            if (value > max) value = max;
+    // Update slider when input is changed (on 'input' event)
+    input.addEventListener('input', function () {
+        const value = parseFloat(input.value);
+        if (!isNaN(value)) {
+            slider.value = value; // Update slider only if the input is a valid number
         }
-
-        // Calculate the number of decimal places in step
-        const stepDecimalPlaces = (step.toString().split('.')[1] || '').length;
-
-        // Round to the nearest step with correct decimal places
-        const roundedValue = Math.round(value / step) * step;
-        const roundedValueFixed = roundedValue.toFixed(stepDecimalPlaces);
-
-        // Update both slider and input with the rounded value
-        slider.value = roundedValueFixed;
-        input.value = roundedValueFixed;
     });
 }
